@@ -1,9 +1,9 @@
 # Pdf_parser <br/>
-Taches pdf vers Fieldwire \n
-#Pour Sogetrel \n
+Taches pdf vers Fieldwire <br/>
+# Pour Sogetrel <br/>
 
 
-#Dépendances \n
-pip install pdfminer \n
-pip install xlwt \n
-pip install PyQt5 \n
+# Dépendances <br/>
+pip install pdfminer <br/>
+pip install xlwt <br/>
+pip install PyQt5 <br/>
