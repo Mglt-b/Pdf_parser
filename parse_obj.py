@@ -80,24 +80,36 @@ def parse_obj(lt_objs, x1, y1, filename, is_reverse, feuille, feuille2, path, li
 
             #if 'POSE' in str(t_clean) or 'CABSYA' in str(t_clean) or '/|IMMEUBLE' in str(t_clean) or '_BR' in str(t_clean):
             if t_clean.count("_") == nb_underscores_cables:
-                #on supprime tout ce qu'il y a après un retour a la ligne dans le texte qui semble etre une boite
-                t_clean_c = t_clean.split('|')[0]
-                compteur = compteur + 1
-                x_percent = str((((float(obj.bbox[0]) + (float(obj.bbox[2])))/2)*100)/float(x1))
-                y_percent = str(100 - (float(obj.bbox[1])*100)/float(y1))
-                if str(is_reverse) == 'y1': 
-                    x_percent = str((((float(obj.bbox[1]) + (float(obj.bbox[3])))/2)*100)/float(x1))
-                    y_percent = str(100 - (float(obj.bbox[0])*100)/float(y1))                    
+                if not cables_var1_not_and in str(t_clean):
+                    if not cables_var2_not_and in str(t_clean):
+                        if not cables_var3_not_and in str(t_clean):
+                            if not cables_var4_not_and in str(t_clean):
+                                if not cables_var5_not_and in str(t_clean):
+                                    if not cables_var6_not_and in str(t_clean):
+                                        if not cables_var7_not_and in str(t_clean):
+                                            if not cables_var8_not_and in str(t_clean):
+                                                if not cables_var9_not_and in str(t_clean):
+                                                    if not cables_var10_not_and in str(t_clean):                                
+                                                        if cables_var1_or in str(t_clean) or cables_var2_or in str(t_clean) or cables_var3_or in str(t_clean) or cables_var4_or in str(t_clean) or cables_var5_or in str(t_clean) or cables_var6_or in str(t_clean) or cables_var7_or in str(t_clean) or cables_var8_or in str(t_clean) or cables_var9_or in str(t_clean) or cables_var10_or in str(t_clean):
+                                                            
+                                                            #on supprime tout ce qu'il y a après un retour a la ligne 
+                                                            t_clean_c = t_clean.split('|')[0]
+                                                            compteur = compteur + 1
+                                                            x_percent = str((((float(obj.bbox[0]) + (float(obj.bbox[2])))/2)*100)/float(x1))
+                                                            y_percent = str(100 - (float(obj.bbox[1])*100)/float(y1))
+                                                            if str(is_reverse) == 'y1': 
+                                                                x_percent = str((((float(obj.bbox[1]) + (float(obj.bbox[3])))/2)*100)/float(x1))
+                                                                y_percent = str(100 - (float(obj.bbox[0])*100)/float(y1))                    
 
 
-                #on nourris l'export excel
-                feuille.write(compteur, 0, "[syno_c] " + str(t_clean_c))
-                feuille.write(compteur, 1, "1")
-                feuille.write(compteur, 2, "Tache_syno")
-                feuille.write(compteur, 3, str(os.getlogin()) + "@sogetrel.fr")
-                feuille.write(compteur, 6, str(filename))
-                feuille.write(compteur, 7, str(x_percent))
-                feuille.write(compteur, 8, str(y_percent))
+                                                            #on nourris l'export excel
+                                                            feuille.write(compteur, 0, "[syno_c] " + str(t_clean_c))
+                                                            feuille.write(compteur, 1, "1")
+                                                            feuille.write(compteur, 2, "Tache_syno")
+                                                            feuille.write(compteur, 3, str(os.getlogin()) + "@sogetrel.fr")
+                                                            feuille.write(compteur, 6, str(filename))
+                                                            feuille.write(compteur, 7, str(x_percent))
+                                                            feuille.write(compteur, 8, str(y_percent))
 
     classeur.save(path)
     print('Export enregistre sous : ')
