@@ -88,7 +88,7 @@ class Fenetre(QWidget):
         self.label1 = QLabel("Export terminé")
         self.label2 = QLabel("Par MIGLIORATI Bastien")
         self.label3 = QLabel("bastien.migliorati@gmail.com")
-        self.label4 = QLabel("https://github.com/Migliorati/Get_coordinate_text_pdf")
+        self.label4 = QLabel("https://github.com/Migliorati/Pdf_parser")
              
         # creation du gestionnaire de mise en forme
         layout1 = QVBoxLayout()
