@@ -62,7 +62,7 @@ if len(is_reverse) != 2:
     print('Mauvais parametre entré (f or e), fin. Exactement deux caractères svp.')
     exit()  
     if not (('y0' in str(is_reverse)) or ('y1' in str(is_reverse)) or ('no' in str(is_reverse))):
-        print('Mauvais parametre entré (y0 or y1 or n), fin.')
+        print('Mauvais parametre entré (y0 or y1 or no), fin.')
         exit()
 
 #emplacement et definition du fichier d'export
@@ -170,7 +170,7 @@ class Fenetre(QWidget):
         x1 = float(page.mediabox[2]) #paysage
         y1 = float(page.mediabox[3]) #paysage
 
-        if float(y1) > float(x1) and str(is_reverse) == 'n':
+        if float(y1) > float(x1) and str(is_reverse) == 'no':
             x1 = float(page.mediabox[3]) #portait
             y1 = float(page.mediabox[2]) #portait
         
