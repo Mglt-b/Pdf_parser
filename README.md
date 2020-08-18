@@ -1,6 +1,7 @@
 # Pdf_parser <br/>
-Taches pdf vers Fieldwire <br/>
-Pour Sogetrel <br/>
+Taches (synoptique) pdf vers Fieldwire <br/>
+Pour Sogetrel <br/> <br/>
+Pourrait-on étendre cela au plan de cablage ? <br/>
 
 
 # Dépendances <br/>
