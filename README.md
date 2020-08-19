@@ -19,3 +19,8 @@ pip install PyQt5  <br/>
 19/08/2020 : Migration des parametrages dans un fichier excel  <br/>
 19/08/2020 : Creation d'un executable v1.2  <br/>
 
+# Comment utiliser <br/>
+Télécharger la dernière release (executable .exe et excel de paramétrage)  <br/>
+Placer les deux fichiers dans le même dossier   <br/>
+Executer le fichier .exe
+
