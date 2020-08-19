@@ -3,12 +3,19 @@ from recherche_csv import recherche_csv
 import subprocess
 import os
 import xlrd
+import sys, os
+
+
 
 
 def parse_obj(lt_objs, x1, y1, filename, is_reverse, feuille, feuille2, path, link_task_sc, classeur):
 
     # Réouverture du classeur
-    classeur20 = xlrd.open_workbook(r'C:\Users\bastien.migliorati\Documents\@_PYTHON\Pdf_parser\parametrages.xlsx')
+    pathname = os.path.dirname(sys.argv[0])    
+    classeur20 = xlrd.open_workbook(pathname + r'\parametrages.xlsx')
+           
+    
+
         
     # Récupération du nom de toutes les feuilles sous forme de liste
     nom_des_feuilles1 = classeur20.sheet_names()
@@ -23,47 +30,6 @@ def parse_obj(lt_objs, x1, y1, filename, is_reverse, feuille, feuille2, path, li
     nb_underscores_boites = format(feuille20.cell_value(20, 2))
 
     # Mes boites ne contiennent pas:
-
-    print(format(feuille20.cell_value(0, 2)))
-    print(format(feuille20.cell_value(0, 6)))
-    print(format(feuille20.cell_value(1, 2)))
-    print(format(feuille20.cell_value(1, 6)))
-    print(format(feuille20.cell_value(2, 2)))
-    print(format(feuille20.cell_value(2, 6)))
-    print(format(feuille20.cell_value(3, 2)))
-    print(format(feuille20.cell_value(3, 6)))
-    print(format(feuille20.cell_value(4, 2)))
-    print(format(feuille20.cell_value(4, 6)))
-    print(format(feuille20.cell_value(5, 2)))
-    print(format(feuille20.cell_value(5, 6)))
-    print(format(feuille20.cell_value(6, 2)))
-    print(format(feuille20.cell_value(6, 6)))
-    print(format(feuille20.cell_value(7, 2)))
-    print(format(feuille20.cell_value(7, 6)))
-    print(format(feuille20.cell_value(8, 2)))
-    print(format(feuille20.cell_value(8, 6)))
-    print(format(feuille20.cell_value(9, 2)))
-    print(format(feuille20.cell_value(9, 6)))
-    print(format(feuille20.cell_value(10, 2)))
-    print(format(feuille20.cell_value(10, 6)))
-    print(format(feuille20.cell_value(11, 2)))
-    print(format(feuille20.cell_value(11, 6)))
-    print(format(feuille20.cell_value(12, 2)))
-    print(format(feuille20.cell_value(12, 6)))
-    print(format(feuille20.cell_value(13, 2)))
-    print(format(feuille20.cell_value(13, 6)))
-    print(format(feuille20.cell_value(14, 2)))
-    print(format(feuille20.cell_value(14, 6)))
-    print(format(feuille20.cell_value(15, 2)))
-    print(format(feuille20.cell_value(15, 6)))
-    print(format(feuille20.cell_value(16, 2)))
-    print(format(feuille20.cell_value(16, 6)))
-    print(format(feuille20.cell_value(17, 2)))
-    print(format(feuille20.cell_value(17, 6)))
-    print(format(feuille20.cell_value(18, 2)))
-    print(format(feuille20.cell_value(18, 6)))
-    print(format(feuille20.cell_value(19, 2)))
-    print(format(feuille20.cell_value(19, 6)))
 
     # ET
     boite_var1_not_and = format(feuille20.cell_value(10, 2))
@@ -186,7 +152,6 @@ def parse_obj(lt_objs, x1, y1, filename, is_reverse, feuille, feuille2, path, li
             
             #on detecte si c'est une boite, si oui, chaine de caractere avec 2 underscores
             nb_underscores_boites = int(str(nb_underscores_boites).replace('"',''))
-            print(nb_underscores_boites)
 
             if t_clean.count("_") == nb_underscores_boites:
 
@@ -215,7 +180,6 @@ def parse_obj(lt_objs, x1, y1, filename, is_reverse, feuille, feuille2, path, li
                                                     if not boite_var10_not_and in str(t_clean_b):                                
                                                         if boite_var1_or in str(t_clean_b) or boite_var2_or in str(t_clean_b) or boite_var3_or in str(t_clean_b) or boite_var4_or in str(t_clean_b) or boite_var5_or in str(t_clean_b) or boite_var6_or in str(t_clean_b) or boite_var7_or in str(t_clean_b) or boite_var8_or in str(t_clean_b) or boite_var9_or in str(t_clean_b) or boite_var10_or in str(t_clean_b):
                                                             compteur = compteur + 1
-                                                            print("error")
                                                                 
                                                             x_percent = str(((float(obj.bbox[0])*100)/float(x1)))
                                                             y_percent = str(100-(float(obj.bbox[1])*100)/float(y1))
