@@ -36,3 +36,4 @@ Ajouter une verification si le fichier de configuration est absent du path. <br/
  <br/>
  Problème de la marge ! <br/>
  Detection problème inversion X / Y <br/>
+ Exclure la partie underscores
