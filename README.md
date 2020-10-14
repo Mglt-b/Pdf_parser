@@ -18,6 +18,13 @@ pip install PyQt5  <br/>
 18/08/2020 : Creation d'un executable v1.1  <br/>
 19/08/2020 : Migration des parametrages dans un fichier excel  <br/>
 19/08/2020 : Creation d'un executable v1.2  <br/>
+14/10/2020 : Adresse reponsable modulable <br/>
+14/10/2020 : Categories taches modulables <br/>
+14/10/2020 : Prefixes des noms de taches modulables <br/>
+14/10/2020 : Prise en compte numero PR pour le syane, parametrable <br/>
+14/10/2020 : Documents multipages compatibles <br/>
+14/10/2020 : Verification de présence du fichier de paramétrage <br/>
+14/10/2020 : Creation d'un executable v1.3  <br/>
 
 # Comment utiliser <br/>
 Télécharger la dernière release (executable .exe et excel de paramétrage)  <br/>
@@ -25,7 +32,6 @@ Placer les deux fichiers dans le même dossier   <br/>
 Executer le fichier .exe
 
 # TO DO <br/>
-Ajouter une verification si le fichier de configuration est absent du path. <br/>
  <br/>
 
  Problème de la marge ! <br/>
