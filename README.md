@@ -10,7 +10,7 @@ pip install xlwt <br/>
 pip install PyQt5  <br/>
 
 
-# Python 3.8 <br/>
+# Dev avec Python 3.8 <br/>
 
 
 # Mise à jour <br/>
