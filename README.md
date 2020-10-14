@@ -30,11 +30,13 @@ pip install PyQt5  <br/>
 # Comment utiliser <br/>
 Télécharger la dernière release (executable .exe et excel de paramétrage)  <br/>
 Placer les deux fichiers dans le même dossier   <br/>
-Executer le fichier .exe
+
+Executer le fichier .exe <br/>
 
 # TO DO <br/>
  <br/>
-
+ 
+ Procédure utilisation liaison de tâches
  Problème de la marge ! <br/>
  Detection problème inversion X / Y <br/>
 
