@@ -4,7 +4,7 @@ import csv
 import glob
 from parse_obj import parse_obj
 
-ver = '1.2'
+ver = '1.3'
 titre = 'Syno PDF vers FIELDWIRE'
 
 print("########################")
@@ -13,8 +13,10 @@ print("Par MIGLIORATI Bastien")
 print("Version : " + str(ver))
 print("########################")
 print("")
+print("Veuillez privilégier des marges, en-têtes et pieds de pages à 0 lors de génération pdf depuis excel.")
+print("")
 
-think_its_safe = input('Password : ')
+#think_its_safe = input('Password : ')
       
 #pour parse pdf
 import pdfminer
@@ -47,31 +49,26 @@ import subprocess
 t = time.localtime()
 current_time = time.strftime("%H_%M_%S", t)
 
-#correlation temporelle des biblioteques
-if str(think_its_safe) not in str(time.strftime("%H_%M", t)):
-    print(str(bytes.fromhex('534f525259').decode('utf-8')))
-    print(str(bytes.fromhex('57 52 4f 4e 47 20').decode('utf-8'))+str(bytes.fromhex('50 41 53 53 57 4f 52 44').decode('utf-8')))
-    exit()
+#password
+#if str(think_its_safe) != str(time.strftime("%H_%M", t)):
+    #print(str(bytes.fromhex('534f525259').decode('utf-8')))
+    #print(str(bytes.fromhex('57 52 4f 4e 47 20').decode('utf-8'))+str(bytes.fromhex('50 41 53 53 57 4f 52 44').decode('utf-8')))
+    #exit()
 
 #tenter de lier les taches ?
-link_task_sc = input('Entrez le mode complementaire (optionnel): \n o pour lier les taches du plan de tirage \n s pour lier les plans de soudure \n ')
+link_task_sc = input('Entrez le mode complementaire (optionnel): \n Tappez "o" pour lier les taches du plan de tirage (voir documentation) \n')
 
 #is_reverse
-is_reverse = input('Besoin d inversion de coordonnées ? y0/y1/no : ')
+is_reverse = input('Besoin d inversion de coordonnées X/Y ? Entrez un des deux paramètres : "y0" / "no" : ')
 if len(is_reverse) != 2:
     print('Mauvais parametre entré (f or e), fin. Exactement deux caractères svp.')
     exit()  
-    if not (('y0' in str(is_reverse)) or ('y1' in str(is_reverse)) or ('no' in str(is_reverse))):
-        print('Mauvais parametre entré (y0 or y1 or no), fin.')
+    if not (('y0' in str(is_reverse)) or ('no' in str(is_reverse))):
+        print('Mauvais parametre entré (y0 or no), fin.')
         exit()
 
-#emplacement et definition du fichier d'export
-path = r"C:\Export_Syno_Fieldwire\export_" + current_time + ".xls"
-# On créer un "classeur"
-classeur = Workbook()
-# On ajoute une feuille au classeur
-feuille = classeur.add_sheet("Fieldwire_syno")
-feuille2 = classeur.add_sheet("Listing_cables_boites")
+
+
 
 #Interface graphique
 #la fenetre
@@ -120,6 +117,9 @@ class Fenetre(QWidget):
         from os.path import basename
         filename = basename(outputpath.name).replace('.pdf', '')
 
+    #emplacement et definition du fichier d'export
+    path = r"C:\Export_Syno_Fieldwire\export_" + str(filename) + str('-') + current_time + ".xls"
+
     # Open a PDF file.
     fp = open(str(outputpath.name), 'rb')
 
@@ -128,7 +128,7 @@ class Fenetre(QWidget):
 
     # Create a PDF document object that stores the document structure.
     document = PDFDocument(parser)
-    print(str(document))
+    #print(str(document))
     # Check if the document allows text extraction. If not, abort.
     if not document.is_extractable:
         print('Non autorise')
@@ -149,17 +149,27 @@ class Fenetre(QWidget):
     interpreter = PDFPageInterpreter(rsrcmgr, device)
 
     # loop over all pages in the document
-    for page in PDFPage.create_pages(document):
 
-        print('Lecture et mise en cache de tous les elements...')
-        print('Veuillez patienter quelques minutes')
+    page_num = 0
+    compteur = 0
+    # On créer un "classeur"
+    classeur = Workbook()
+    # On ajoute une feuille au classeur
+    feuille = classeur.add_sheet("Fieldwire_syno")
+    for page in PDFPage.create_pages(document):
+        page_num = page_num + 1
+        print('-'*20)
+        print(filename + str('-') + str(page_num))
+
+        print('Lecture et mise en cache de tous les elements')
+        print("Veuillez patienter quelques instants (jusqu'à 5 minutes par page)...")
         # read the page into a layout object
         interpreter.process_page(page)
         layout = device.get_result()
 
-        print(str(page))
+        #print(str(page))
         print('layout : ' + str(layout))
-        print(str(device))
+        #print(str(device))
         
         #securite si tupple vide
         if not all(layout._objs):
@@ -175,7 +185,16 @@ class Fenetre(QWidget):
             y1 = float(page.mediabox[2]) #portait
         
         # extract text from this object
-        parse_obj(layout._objs, x1, y1, filename, is_reverse, feuille, feuille2, path, link_task_sc, classeur)
+        compteur = parse_obj(layout._objs, x1, y1, filename, is_reverse, feuille, path, link_task_sc, classeur, page_num, current_time, compteur)
+
+    classeur.save(path)
+
+    print('Export enregistre sous : ')
+    print(path)
+    print('-'*20)
+    subprocess.run(['explorer', os.path.realpath(path)])
+
+
 
 app = QApplication.instance() 
 if not app:
@@ -183,3 +202,4 @@ if not app:
     
 fen = Fenetre()
 fen.show()
+
