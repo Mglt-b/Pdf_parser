@@ -32,12 +32,12 @@ pip install PyQt5  <br/>
 Télécharger la dernière release (executable .exe et excel de paramétrage)  <br/>
 Placer les deux fichiers dans le même dossier   <br/>
 ############### </br>
-Pour utiliser la fonction de taches associées, réaliser un export fieldwire de toutes les taches en csv.
-Supprimer toutes les colonnes sauf la colonne titre, qui comprend les noms des taches.
-Cette colonne doit etre en colonne A.
-Supprimer tous les champs vides de cette colonne.
-Sauvegarder en csv (point virgules), dans le dossier de l'executable, dans le sous dossier "\Tache_associee".
-Le nommage n'est pas important, mais il faut un seul csv a cet emplacement.
+Pour utiliser la fonction de taches associées, réaliser un export fieldwire de toutes les taches en csv.  <br/>
+Supprimer toutes les colonnes sauf la colonne titre, qui comprend les noms des taches.  <br/>
+Cette colonne doit etre en colonne A.  <br/>
+Supprimer tous les champs vides de cette colonne.  <br/>
+Sauvegarder en csv (point virgules), dans le dossier de l'executable, dans le sous dossier "\Tache_associee".  <br/>
+Le nommage n'est pas important, mais il faut un seul csv a cet emplacement.  <br/>
 ############### </br>
 Executer le fichier .exe <br/>
 
