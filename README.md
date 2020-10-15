@@ -26,7 +26,8 @@ pip install PyQt5  <br/>
 14/10/2020 : Verification de présence du fichier de paramétrage <br/>
 14/10/2020 : Adapatation du code pour le pôle GC SIEA <br/>
 15/10/2020 : Ajout des listes de controles fixes, modulables via paramètres <br/>
-15/10/2020 : Creation d'un executable v1.3  <br/>
+15/10/2020 : Corrections taches associées pour adapter au projet SYANE </br>
+15/10/2020 : Creation d'un executable v1.3, ajout de la release <br/>
 
 # Comment utiliser <br/>
 Télécharger la dernière release (executable .exe et excel de paramétrage)  <br/>
