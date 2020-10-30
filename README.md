@@ -49,6 +49,5 @@ Executer le fichier .exe <br/>
  <br/>
  
  Procédure utilisation liaison de tâches
- Problème de la marge ! <br/>
- Detection problème inversion X / Y <br/>
+ Problème de la marge ! Besoin d'anayse <br/>
 
