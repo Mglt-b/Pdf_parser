@@ -48,6 +48,6 @@ Executer le fichier .exe <br/>
 # TO DO <br/>
  <br/>
  
- Procédure utilisation liaison de tâches
+ Procédure utilisation liaison de tâches <br/>
  Problème de la marge ! Besoin d'anayse <br/>
 
