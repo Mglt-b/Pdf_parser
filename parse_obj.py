@@ -151,6 +151,23 @@ def parse_obj(lt_objs, x1, y1, filename, is_reverse, feuille, path, link_task_sc
     # ET
     cables_var10_not_and = format(feuille20.cell_value(19, 6))
 
+    is_reverse = 'no'
+
+    #on loop pour savoir si un besoin de reverse est necessaire
+    for obj in lt_objs:
+        if isinstance(obj, pdfminer.layout.LTTextBoxHorizontal):
+            x_percent = float(((float(obj.bbox[0])*100)/float(x1)))
+            y_percent = float(100-(float(obj.bbox[1])*100)/float(y1))
+            
+                                                                        
+            if ((x_percent >= 0) and (x_percent <= 100)) and ((y_percent >= 0) and (y_percent <= 100)):
+                x_percent = str(((float(obj.bbox[0])*100)/float(x1)))
+                y_percent = str(100-(float(obj.bbox[1])*100)/float(y1))
+            else :
+                is_reverse = 'y0'
+
+
+    #on loop pour trouver le num PR
     num_pr = ''
     for obj in lt_objs:
         
@@ -196,12 +213,15 @@ def parse_obj(lt_objs, x1, y1, filename, is_reverse, feuille, path, link_task_sc
                                                         if boite_var1_or in str(t_clean_b) or boite_var2_or in str(t_clean_b) or boite_var3_or in str(t_clean_b) or boite_var4_or in str(t_clean_b) or boite_var5_or in str(t_clean_b) or boite_var6_or in str(t_clean_b) or boite_var7_or in str(t_clean_b) or boite_var8_or in str(t_clean_b) or boite_var9_or in str(t_clean_b) or boite_var10_or in str(t_clean_b):
                                                             compteur = compteur + 1
                                                                 
-                                                            x_percent = str(((float(obj.bbox[0])*100)/float(x1)))
-                                                            y_percent = str(100-(float(obj.bbox[1])*100)/float(y1))
-                                                                
-                                                            if str(is_reverse) == 'y1':
+                                                            
+                                                            if is_reverse == 'no':
+                                                                x_percent = str(((float(obj.bbox[0])*100)/float(x1)))
+                                                                y_percent = str(100-(float(obj.bbox[1])*100)/float(y1))
+                                                            else :
                                                                 x_percent = str(((float(obj.bbox[1])*100)/float(x1)))
                                                                 y_percent = str(100-(float(obj.bbox[0])*100)/float(y1))
+
+
                                                                     
                                                             #on nourris l'export excel
                                                             feuille.write(compteur, 0,  str(boite_prefix) + str(t_clean_b))
@@ -246,9 +266,11 @@ def parse_obj(lt_objs, x1, y1, filename, is_reverse, feuille, path, link_task_sc
                                                             #on supprime tout ce qu'il y a après un retour a la ligne 
                                                             t_clean_c = t_clean.split('|')[0]
                                                             compteur = compteur + 1
-                                                            x_percent = str((((float(obj.bbox[0]) + (float(obj.bbox[2])))/2)*100)/float(x1))
-                                                            y_percent = str(100 - (float(obj.bbox[1])*100)/float(y1))
-                                                            if str(is_reverse) == 'y1': 
+
+                                                            if is_reverse == 'no':
+                                                                x_percent = str((((float(obj.bbox[0]) + (float(obj.bbox[2])))/2)*100)/float(x1))
+                                                                y_percent = str(100 - (float(obj.bbox[1])*100)/float(y1))
+                                                            else :
                                                                 x_percent = str((((float(obj.bbox[1]) + (float(obj.bbox[3])))/2)*100)/float(x1))
                                                                 y_percent = str(100 - (float(obj.bbox[0])*100)/float(y1))                    
 

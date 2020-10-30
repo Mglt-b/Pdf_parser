@@ -4,7 +4,7 @@ import csv
 import glob
 from parse_obj import parse_obj
 
-ver = '1.3'
+ver = '1.4'
 titre = 'Syno PDF vers FIELDWIRE'
 
 print("########################")
@@ -58,15 +58,17 @@ current_time = time.strftime("%H_%M_%S", t)
 #tenter de lier les taches ?
 link_task_sc = input('Entrez le mode complementaire (optionnel): \n Tappez "o" pour lier les taches du plan de tirage (voir documentation) \n')
 
-#is_reverse
-is_reverse = input('Besoin d inversion de coordonnées X/Y ? Entrez un des deux paramètres : "y0" / "no" : ')
+is_reverse = 'no'
+
+''' n est plus utilisé, on essaye de deuire tout seul le reverse
+is_reverse = 'input('Besoin d inversion de coordonnées X/Y ? Entrez un des deux paramètres : "y0" / "no" : ')'
 if len(is_reverse) != 2:
     print('Mauvais parametre entré (f or e), fin. Exactement deux caractères svp.')
     exit()  
     if not (('y0' in str(is_reverse)) or ('no' in str(is_reverse))):
         print('Mauvais parametre entré (y0 or no), fin.')
         exit()
-
+'''
 
 
 
@@ -127,7 +129,7 @@ class Fenetre(QWidget):
     parser = PDFParser(fp)
 
     # Create a PDF document object that stores the document structure.
-    document = PDFDocument(parser)
+    document = PDFDocument(parser, caching=False)
     #print(str(document))
     # Check if the document allows text extraction. If not, abort.
     if not document.is_extractable:
@@ -141,7 +143,8 @@ class Fenetre(QWidget):
     # Create a PDF device object.
     device = PDFDevice(rsrcmgr)
     # BEGIN LAYOUT ANALYSIS: Set parameters for analysis.
-    laparams = LAParams()
+    #laparams = LAParams()
+    laparams = LAParams(detect_vertical=True)
     print('Definition des parametres pour analyse')
     # Create a PDF page aggregator object.
     device = PDFPageAggregator(rsrcmgr, laparams=laparams)
@@ -156,6 +159,8 @@ class Fenetre(QWidget):
     classeur = Workbook()
     # On ajoute une feuille au classeur
     feuille = classeur.add_sheet("Fieldwire_syno")
+
+    
     for page in PDFPage.create_pages(document):
         page_num = page_num + 1
         print('-'*20)
@@ -187,6 +192,7 @@ class Fenetre(QWidget):
         # extract text from this object
         compteur = parse_obj(layout._objs, x1, y1, filename, is_reverse, feuille, path, link_task_sc, classeur, page_num, current_time, compteur)
 
+    
     classeur.save(path)
 
     print('Export enregistre sous : ')
