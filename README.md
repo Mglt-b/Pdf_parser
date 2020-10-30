@@ -27,7 +27,10 @@ pip install PyQt5  <br/>
 14/10/2020 : Adapatation du code pour le pôle GC SIEA <br/>
 15/10/2020 : Ajout des listes de controles fixes, modulables via paramètres <br/>
 15/10/2020 : Corrections taches associées pour adapter au projet SYANE </br>
-15/10/2020 : Creation d'un executable v1.3, ajout de la release <br/>
+15/10/2020 : Creation d'un executable v1.3, ajout de la release <br/><br/>
+25/10/2020 : Refonte du code pour palier au problèmes d'inversion de cordonnées, detecté automatiquement désormais <br/>
+25/10/2020 : Codes cleanups <br/>
+30/10/2020 : Creation d'un executable v1.3, ajout de la release <br/><br/>
 
 # Comment utiliser <br/>
 Télécharger la dernière release (executable .exe et excel de paramétrage)  <br/>
