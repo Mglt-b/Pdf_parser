@@ -4,7 +4,7 @@ import csv
 import glob
 from parse_obj import parse_obj
 
-ver = '1.4'
+ver = '1.5'
 titre = 'Syno PDF vers FIELDWIRE'
 
 print("########################")
