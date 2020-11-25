@@ -31,6 +31,8 @@ pip install PyQt5  <br/>
 25/10/2020 : Refonte du code pour palier au problèmes d'inversion de cordonnées, detecté automatiquement désormais <br/>
 25/10/2020 : Codes cleanups <br/>
 30/10/2020 : Creation d'un executable v1.4, ajout de la release <br/><br/>
+25/11/2020 : Corrections suite bugs dans la v1.4 <br/>
+25/11/2020 : Creation d'un executable v1.5, ajout de la release <br/><br/>
 
 # Comment utiliser <br/>
 Télécharger la dernière release (executable .exe et excel de paramétrage)  <br/>
