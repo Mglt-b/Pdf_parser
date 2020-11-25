@@ -152,6 +152,8 @@ def parse_obj(lt_objs, x1, y1, filename, is_reverse, feuille, path, link_task_sc
     cables_var10_not_and = format(feuille20.cell_value(19, 6))
 
     is_reverse = 'no'
+    xx = x1
+    yy = y1
 
     #on loop pour savoir si un besoin de reverse est necessaire
     for obj in lt_objs:
@@ -159,12 +161,14 @@ def parse_obj(lt_objs, x1, y1, filename, is_reverse, feuille, path, link_task_sc
             x_percent = float(((float(obj.bbox[0])*100)/float(x1)))
             y_percent = float(100-(float(obj.bbox[1])*100)/float(y1))
             
+
                                                                         
             if ((x_percent >= 0) and (x_percent <= 100)) and ((y_percent >= 0) and (y_percent <= 100)):
-                x_percent = str(((float(obj.bbox[0])*100)/float(x1)))
-                y_percent = str(100-(float(obj.bbox[1])*100)/float(y1))
+                is_reverse = 'no'
             else :
-                is_reverse = 'y0'
+                x1 = yy
+                y1 = xx
+                #is_reverse = 'y1'
 
 
     #on loop pour trouver le num PR
@@ -186,108 +190,111 @@ def parse_obj(lt_objs, x1, y1, filename, is_reverse, feuille, path, link_task_sc
     for obj in lt_objs:
 
         # if it's a textbox, print text and location
-        if isinstance(obj, pdfminer.layout.LTTextBoxHorizontal):
+        if isinstance(obj, pdfminer.layout.LTTextBox) or isinstance(obj, pdfminer.layout.LTTextLine) or isinstance(obj, pdfminer.layout.LTFigure):
 
+            try :
+                    
+                t_clean3 = obj.get_text()
+                #clean du texte
+                t_clean2 = str(t_clean3).replace('\n', '|')
+                t_clean1 = str(t_clean2).replace('  ', '')
+                #t_clean = str(t_clean1).replace(' ', '|')
+                t_clean_0 = []
+                t_clean_0.append(t_clean1)
+                t_clean_b0 = t_clean_0[0].split('|')
 
-            t_clean3 = obj.get_text()
-            #clean du texte
-            t_clean2 = str(t_clean3).replace('\n', '|')
-            t_clean1 = str(t_clean2).replace('  ', '')
-            #t_clean = str(t_clean1).replace(' ', '|')
-            t_clean_0 = []
-            t_clean_0.append(t_clean1)
-            t_clean_b0 = t_clean_0[0].split('|')
-
-            for t_clean_b in t_clean_b0:
-                #essaye de recuperer uniquement les boites
-                if not boite_var1_not_and in str(t_clean_b):
-                    if not boite_var2_not_and in str(t_clean_b):
-                        if not boite_var3_not_and in str(t_clean_b):
-                            if not boite_var4_not_and in str(t_clean_b):
-                                if not boite_var5_not_and in str(t_clean_b):
-                                    if not boite_var6_not_and in str(t_clean_b):
-                                        if not boite_var7_not_and in str(t_clean_b):
-                                            if not boite_var8_not_and in str(t_clean_b):
-                                                if not boite_var9_not_and in str(t_clean_b):
-                                                    if not boite_var10_not_and in str(t_clean_b):                                
-                                                        if boite_var1_or in str(t_clean_b) or boite_var2_or in str(t_clean_b) or boite_var3_or in str(t_clean_b) or boite_var4_or in str(t_clean_b) or boite_var5_or in str(t_clean_b) or boite_var6_or in str(t_clean_b) or boite_var7_or in str(t_clean_b) or boite_var8_or in str(t_clean_b) or boite_var9_or in str(t_clean_b) or boite_var10_or in str(t_clean_b):
-                                                            compteur = compteur + 1
-                                                                
-                                                            
-                                                            if is_reverse == 'no':
-                                                                x_percent = str(((float(obj.bbox[0])*100)/float(x1)))
-                                                                y_percent = str(100-(float(obj.bbox[1])*100)/float(y1))
-                                                            else :
-                                                                x_percent = str(((float(obj.bbox[1])*100)/float(x1)))
-                                                                y_percent = str(100-(float(obj.bbox[0])*100)/float(y1))
-
-
+                for t_clean_b in t_clean_b0:
+                    #essaye de recuperer uniquement les boites
+                    if not boite_var1_not_and in str(t_clean_b):
+                        if not boite_var2_not_and in str(t_clean_b):
+                            if not boite_var3_not_and in str(t_clean_b):
+                                if not boite_var4_not_and in str(t_clean_b):
+                                    if not boite_var5_not_and in str(t_clean_b):
+                                        if not boite_var6_not_and in str(t_clean_b):
+                                            if not boite_var7_not_and in str(t_clean_b):
+                                                if not boite_var8_not_and in str(t_clean_b):
+                                                    if not boite_var9_not_and in str(t_clean_b):
+                                                        if not boite_var10_not_and in str(t_clean_b):                                
+                                                            if boite_var1_or in str(t_clean_b) or boite_var2_or in str(t_clean_b) or boite_var3_or in str(t_clean_b) or boite_var4_or in str(t_clean_b) or boite_var5_or in str(t_clean_b) or boite_var6_or in str(t_clean_b) or boite_var7_or in str(t_clean_b) or boite_var8_or in str(t_clean_b) or boite_var9_or in str(t_clean_b) or boite_var10_or in str(t_clean_b):
+                                                                compteur = compteur + 1
                                                                     
-                                                            #on nourris l'export excel
-                                                            feuille.write(compteur, 0,  str(boite_prefix) + str(t_clean_b))
-                                                            feuille.write(compteur, 1, "Priorité 1")
-                                                            feuille.write(compteur, 2, str(cat_boite))
-                                                            feuille.write(compteur, 3, str(mail_resp))
-                                                            if is_multipage == 'oui':
-                                                                feuille.write(compteur, 6, str(filename) + str('_') + str(page_num))
-                                                            else:
-                                                                feuille.write(compteur, 6, str(filename))
-                                                            feuille.write(compteur, 7, str(x_percent))
-                                                            feuille.write(compteur, 8, str(y_percent))
-                                                            #associe les taches syno/cablage
-                                                            value_desired = str(t_clean_b)
-                                                            type_tache = 'boite'
-                                                            tache_assoc_b = recherche_csv(value_desired, type_tache)
-                                                            if tache_assoc_b is not None:
-                                                                feuille.write(compteur, 13, str(tache_assoc_b))
-                                                            #associe les plans de boites
-                                                            if not str(list_control_boite) == '':
-                                                                feuille.write(compteur, 14, str(list_control_boite))
-
-                                                            if str(prefixe_pdb) == 'oui':
-                                                                feuille.write(compteur, 15, str(num_pr) + str('_') + str(value_desired) + str('.pdf'))
-                                                            else:
-                                                                feuille.write(compteur, 15, str('_') + str(value_desired) + str('.pdf') )
-                                                            
-
-                t_clean = t_clean_b
-                if not cables_var1_not_and in str(t_clean):
-                    if not cables_var2_not_and in str(t_clean):
-                        if not cables_var3_not_and in str(t_clean):
-                            if not cables_var4_not_and in str(t_clean):
-                                if not cables_var5_not_and in str(t_clean):
-                                    if not cables_var6_not_and in str(t_clean):
-                                        if not cables_var7_not_and in str(t_clean):
-                                            if not cables_var8_not_and in str(t_clean):
-                                                if not cables_var9_not_and in str(t_clean):
-                                                    if not cables_var10_not_and in str(t_clean):                                
-                                                        if cables_var1_or in str(t_clean) or cables_var2_or in str(t_clean) or cables_var3_or in str(t_clean) or cables_var4_or in str(t_clean) or cables_var5_or in str(t_clean) or cables_var6_or in str(t_clean) or cables_var7_or in str(t_clean) or cables_var8_or in str(t_clean) or cables_var9_or in str(t_clean) or cables_var10_or in str(t_clean):
-                                                            
-                                                            #on supprime tout ce qu'il y a après un retour a la ligne 
-                                                            t_clean_c = t_clean.split('|')[0]
-                                                            compteur = compteur + 1
-
-                                                            if is_reverse == 'no':
-                                                                x_percent = str((((float(obj.bbox[0]) + (float(obj.bbox[2])))/2)*100)/float(x1))
-                                                                y_percent = str(100 - (float(obj.bbox[1])*100)/float(y1))
-                                                            else :
-                                                                x_percent = str((((float(obj.bbox[1]) + (float(obj.bbox[3])))/2)*100)/float(x1))
-                                                                y_percent = str(100 - (float(obj.bbox[0])*100)/float(y1))                    
+                                                                
+                                                                if is_reverse == 'no':
+                                                                    x_percent = str(((float(obj.bbox[0])*100)/float(x1)))
+                                                                    y_percent = str(100-(float(obj.bbox[1])*100)/float(y1))
+                                                                if is_reverse == 'y1':
+                                                                    x_percent = str(((float(obj.bbox[1])*100)/float(x1)))
+                                                                    y_percent = str(100-(float(obj.bbox[0])*100)/float(y1))
 
 
-                                                            #on nourris l'export excel
-                                                            feuille.write(compteur, 0, str(cable_prefix) + str(t_clean_c))
-                                                            feuille.write(compteur, 1, "Priorité 1")
-                                                            feuille.write(compteur, 2, str(cat_cable))
-                                                            feuille.write(compteur, 3, str(mail_resp))
-                                                            if is_multipage == 'oui':
-                                                                feuille.write(compteur, 6, str(filename) + str('_') + str(page_num))
-                                                            else:
-                                                                feuille.write(compteur, 6, str(filename))
-                                                            feuille.write(compteur, 7, str(x_percent))
-                                                            feuille.write(compteur, 8, str(y_percent))
-                                                            if not str(list_control_cable) == '':
-                                                                feuille.write(compteur, 14, str(list_control_cable))
+                                                                        
+                                                                #on nourris l'export excel
+                                                                feuille.write(compteur, 0,  str(boite_prefix) + str(t_clean_b))
+                                                                feuille.write(compteur, 1, "Priorité 1")
+                                                                feuille.write(compteur, 2, str(cat_boite))
+                                                                feuille.write(compteur, 3, str(mail_resp))
+                                                                if is_multipage == 'oui':
+                                                                    feuille.write(compteur, 6, str(filename) + str('_') + str(page_num))
+                                                                else :
+                                                                    feuille.write(compteur, 6, str(filename))
+                                                                feuille.write(compteur, 7, str(x_percent))
+                                                                feuille.write(compteur, 8, str(y_percent))
+                                                                #associe les taches syno/cablage
+                                                                value_desired = str(t_clean_b)
+                                                                type_tache = 'boite'
+                                                                tache_assoc_b = recherche_csv(value_desired, type_tache)
+                                                                if tache_assoc_b is not None:
+                                                                    feuille.write(compteur, 13, str(tache_assoc_b))
+                                                                #associe les plans de boites
+                                                                if not str(list_control_boite) == '':
+                                                                    feuille.write(compteur, 14, str(list_control_boite))
+
+                                                                if str(prefixe_pdb) == 'oui':
+                                                                    feuille.write(compteur, 15, str(num_pr) + str('_') + str(value_desired) + str('.pdf'))
+                                                                else:
+                                                                    feuille.write(compteur, 15, str('_') + str(value_desired) + str('.pdf') )
+                                                                
+
+                    t_clean = t_clean_b
+                    if not cables_var1_not_and in str(t_clean):
+                        if not cables_var2_not_and in str(t_clean):
+                            if not cables_var3_not_and in str(t_clean):
+                                if not cables_var4_not_and in str(t_clean):
+                                    if not cables_var5_not_and in str(t_clean):
+                                        if not cables_var6_not_and in str(t_clean):
+                                            if not cables_var7_not_and in str(t_clean):
+                                                if not cables_var8_not_and in str(t_clean):
+                                                    if not cables_var9_not_and in str(t_clean):
+                                                        if not cables_var10_not_and in str(t_clean):                                
+                                                            if cables_var1_or in str(t_clean) or cables_var2_or in str(t_clean) or cables_var3_or in str(t_clean) or cables_var4_or in str(t_clean) or cables_var5_or in str(t_clean) or cables_var6_or in str(t_clean) or cables_var7_or in str(t_clean) or cables_var8_or in str(t_clean) or cables_var9_or in str(t_clean) or cables_var10_or in str(t_clean):
+                                                                
+                                                                #on supprime tout ce qu'il y a après un retour a la ligne 
+                                                                t_clean_c = t_clean.split('|')[0]
+                                                                compteur = compteur + 1
+
+                                                                if is_reverse == 'no':
+                                                                    x_percent = str((((float(obj.bbox[0]) + (float(obj.bbox[2])))/2)*100)/float(x1))
+                                                                    y_percent = str(100 - (float(obj.bbox[1])*100)/float(y1))
+                                                                if is_reverse == 'y1':
+                                                                    x_percent = str((((float(obj.bbox[1]) + (float(obj.bbox[3])))/2)*100)/float(x1))
+                                                                    y_percent = str(100 - (float(obj.bbox[0])*100)/float(y1))                    
+
+
+                                                                #on nourris l'export excel
+                                                                feuille.write(compteur, 0, str(cable_prefix) + str(t_clean_c))
+                                                                feuille.write(compteur, 1, "Priorité 1")
+                                                                feuille.write(compteur, 2, str(cat_cable))
+                                                                feuille.write(compteur, 3, str(mail_resp))
+                                                                if is_multipage == 'oui':
+                                                                    feuille.write(compteur, 6, str(filename) + str('_') + str(page_num))
+                                                                else:
+                                                                    feuille.write(compteur, 6, str(filename))
+                                                                feuille.write(compteur, 7, str(x_percent))
+                                                                feuille.write(compteur, 8, str(y_percent))
+                                                                if not str(list_control_cable) == '':
+                                                                    feuille.write(compteur, 14, str(list_control_cable))
+            except Exception as e:
+                print(e)
     print("Fin de l'analise de la feuille")
     return compteur
     #if is_multipage == 'oui':
